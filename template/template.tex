@@ -1,0 +1,267 @@
+% Font =============================================================================%
+
+\documentclass[12pt]{article}
+\linespread{1.5} 
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Language =========================================================================%
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
+% LaTeX hack to hide environments from Pandoc ======================================%
+
+\let\Begin\begin
+\let\End\end
+
+% Margins ===========================================================================%
+
+\usepackage
+[
+        a4paper,
+        left=3cm,
+        right=2cm,
+        top=3cm,
+        bottom=2cm,
+        headsep=7mm,
+]
+{geometry}
+
+% Bibliografy ======================================================================%
+
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+$if(csquotes)$
+\usepackage{csquotes}
+$endif$
+
+% Sections style ==================================================================%
+
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\bfseries}
+  {\thesection}
+  {.5em}
+  {\MakeUppercase}
+
+\titleformat{\subsection}
+  {\bfseries}
+  {\thesubsection}
+  {.5em}
+  {\MakeUppercase}
+
+\titleformat{\subsubsection}
+  {\bfseries}
+  {\thesubsubsection}
+  {.5em}
+  {\MakeUppercase}
+
+% Text ============================================================================%
+
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+
+% Images ==========================================================================%
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\makeatletter
+\def\ScaleWidthIfNeeded{%
+ \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\def\ScaleHeightIfNeeded{%
+  \ifdim\Gin@nat@height>0.9\textheight
+    0.9\textheight
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
+
+\usepackage{caption}  
+\newcommand{\source}[1]{\caption*{{#1}} }
+
+% Quote ===========================================================================%
+
+\usepackage{setspace}
+
+\renewenvironment{quote}
+{
+  \vspace{0.6cm}
+  \list{}{\leftmargin4cm\topsep0cm}\item[]
+  \footnotesize
+  \begin{singlespace}
+}
+{
+  \end{singlespace}
+  \vspace{0.6cm}
+}
+
+\usepackage[hang, flushmargin]{footmisc}
+\usepackage{footnotebackref}
+
+% Hyperref =========================================================================%
+
+\usepackage{xurl} % Allows urls to break everywhere
+\usepackage{hyperref}
+
+\urlstyle{sf} % Normal font in URLs
+
+% Tight list =======================================================================%
+
+\providecommand{\tightlist}{
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Page numbering ===================================================================%
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\lhead{}
+\chead{}
+\rhead{\footnotesize\thepage}
+\cfoot{}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Abstract =========================================================================%
+
+\renewenvironment{abstract}
+{
+  \thispagestyle{empty}
+
+  \let\origsection\section
+
+  \renewcommand{\section}{%
+    \origsection*
+  }
+
+  \setlength{\parindent}{0pt}
+}
+{
+  \pagebreak
+}
+
+% Table of Contents ================================================================%
+
+\usepackage{tocloft}
+
+%Remove indentations
+\cftsetindents{section}{0em}{2em}
+\cftsetindents{subsection}{0em}{2em}
+
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\MakeUppercase}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\bfseries\MakeUppercase}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+%Dot sections
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+%Normal line skip
+\setlength\cftparskip{0pt}
+\setlength\cftbeforesecskip{0pt}
+\setlength\cftaftertoctitleskip{20pt}
+
+\newcommand{\TableOfContents}
+{
+  \tableofcontents
+  \thispagestyle{empty}
+  \pagebreak
+}
+
+% Document begin ====================================================================%
+
+\begin{document}
+
+% Cover =============================================================================%
+
+\begin{titlepage}
+\begin{center}
+\textbf{\uppercase{$institution$}}
+\vfill       
+\textbf{\uppercase{$author-meta$}}     
+\vfill
+\textbf{\uppercase{$title-meta$}}\\
+\textbf{\uppercase{$subtitle$}}
+\vfill   
+\textbf{\uppercase{$local$}}\\
+\textbf{\uppercase{$date$}}     
+\end{center}
+\end{titlepage}
+
+% Cover sheet =======================================================================%
+
+\thispagestyle{empty}
+
+\begin{center}
+\textbf{\uppercase{$author-meta$}}
+
+\vfill
+
+\textbf{\uppercase{$title-meta$}}
+\end{center}
+
+\vfill
+
+\hspace{.45\textwidth}
+\begin{minipage}{.5\textwidth}
+\begin{singlespace}
+$preamble$
+\end{singlespace}
+\end{minipage}
+
+\vfill
+
+\hspace{.45\textwidth}
+\begin{minipage}{.5\textwidth}
+$advisors$
+\end{minipage}
+
+\vfill
+
+\begin{center}  
+\textbf{\uppercase{$local$}}\\
+\textbf{\uppercase{$date$}}     
+\end{center}
+\pagebreak
+
+% Content ===========================================================================%
+
+$body$
+
+\end{document}
